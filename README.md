@@ -38,7 +38,7 @@ For this section, I followed the *[How to build a Simulated Mobile Robot Base Us
 9) Download the gazebo launch file from [here](https://drive.google.com/drive/folders/1Acv58Up41u5pYDM5yE1jru_YoVbn_rCl?usp=sharing), place it in the launch folder, then run the simulation:
    - `roslaunch mobile_manipulator_body base_gazebo_control.launch`
 
-10) Make a note of the full context of the full context of the "name_space/cmd_vel" topic:
+10) Make a note of the full context of the "name_space/cmd_vel" topic:
     - `rostopic list | grep cmd_vel`
 
 11) The simulated robot can be driven by publishing to the "name_space/cmd_vel" topic. Open-up the rqt robot steering gui and paste the full context of the "name_space/cmd_vel" topic (in this example it's "/robot_base_velocity_controller/cmd_vel"):
