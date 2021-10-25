@@ -9,3 +9,19 @@ Setting-up the Boston Dynamics *spot* robot using the [clearpath robotics ROS pa
 2) Experimenting in simulation, need to tune costmap and control params for more efficient navigation.
    - `roslaunch champ_config gazebo.launch`
    - `roslaunch champ_config gmapping.launch rviz:=true`
+
+3) Installed the [spot config folder](https://github.com/chvmp/robots/tree/master/configs/spot_config) by following the instructions on the [*CHAMP* robots repo](https://github.com/chvmp/robots.git). Running SLAM in simulation with spot is set-up as follows:
+   - `roslaunch spot_config gazebo.launch`
+   - `roslaunch spot_config slam.launch rviz:=true`
+
+---
+## Notes
+
+Clear costmap: 
+- `rosservice call /move_base/clear_costmaps`
+Reset model poses in Gazebo:
+- `Ctrl+Shift+R`
+- [ROS Navigation Tuning Guide](https://kaiyuzheng.me/documents/navguide.pdf)
+- [Advanced ROS Navigation configuration notes](https://blog.zhaw.ch/icclab/configuring-the-ros-navigation-stack-on-a-new-robot/)
+
+---
