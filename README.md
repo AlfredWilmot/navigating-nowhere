@@ -108,6 +108,9 @@ The ROS Navigation Stack consists of a set of packages that enable the safe move
    - Ensure the coordinate frame parameters in "/hector_slam/hector_mapping/launch/mapping_default.launch" are set-up with the right names & options.
 
 6) Setup the simulation and launch the mapping algorithm; this will generate a map that can be saved as a png and subsequently loaded onto a map_server for subsequent use (requires installation of the map-server pkg). The robot needs to move quite slowly around the environment in order to generate an accurate map-- if it moves too fast the map will be way off.
+    - `roslaunch mobile_manipulator mobile_manipulator_gazebo.launch`
+    - `roslaunch hector_slam_launch tutorial.launch`
+    - `rosrun rqt_robot_steering rqt_robot_steering`
 
 7) Once the robot has been made to navigate around its environment, and a map can bee seen in RViz, store the map in a "maps" folder:
    - `roscd mobile_manipulator/maps`
