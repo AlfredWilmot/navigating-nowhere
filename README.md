@@ -1,8 +1,8 @@
 # Navigating Nowhere
 
-This set of instructions aims to outline how to setup the ROS navigation stack on a simulated robot in ROS Melodic (on Ubuntu 18.04). First I will document my experience following this set of tutorials from Addison Sears-Collins:
+This set of instructions aims to outline how to setup the ROS navigation stack on a simulated robot in ROS Melodic (on Ubuntu 18.04). 
 
-- [Setting up the ROS navigation stack for a simulated robot](https://automaticaddison.com/setting-up-the-ros-navigation-stack-for-a-simulated-robot/)
+First I will document my experience following this set of tutorials from Addison Sears-Collins.
 
 ---
 ### Making a Moving Base
@@ -79,5 +79,41 @@ For this section, I followed the [_Setting Up the ROS Navigation Stack for a Sim
 
 The ROS Navigation Stack consists of a set of packages that enable the safe movement of a robot from an initial location to a goal location.
 
+1) Simply set-up the packages as is described by the tutorial; ensure that the path to the gazebo environement is set-up such that it will launch the "postworld" map.
 
-1) Create 
+2) ROS Nav parameters to enable autonomous navigation: Costmaps.
+   - Costmaps are used to store information about the environment
+     - *Global Costmap*: used to calculate the shortes path from a start point to an end point.
+     - *Local Costmap*: Use for obstacle avoidance.
+
+3) Setup the various config files.
+   - Costmap parameter files:
+     - [Common](https://drive.google.com/file/d/1uBClSpjCtTPbDtAD-Ae13RcL40cx16eg/view?usp=sharing)
+     - [Global](https://drive.google.com/file/d/1kv2ZKEFp2YUHZ7K_TjOKDYSFzBnNuPmW/view?usp=sharing)
+     - [Local](https://drive.google.com/file/d/1L1mO2myoFKJtZhCnDSeWHwnLMzH3Y9Cg/view?usp=sharing)
+   - [Base Local Planner](https://drive.google.com/file/d/1_2LhNDF9nPPzDSN-RKUuhPuYMZXGYmZS/view?usp=sharing) (used to compute the velocity commands sent to the robot base controller).
+   - [RViz settings](https://drive.google.com/file/d/1HO_udwH6aVXy1Ym209lBYSC7msYtIrOG/view?usp=sharing)
+
+4) Ensure the ROS navigation stack is installed (confirm by checking for the existence of the amcl rospackage):
+   - `sudo apt-get install ros-melodic-navigation`
+   - `rospack find amcl`
+
+5) Creating a map using the *ROS Hector-SLAM* Package by first installing *QT4* then download the Hector-SLAM package.
+   - Install *QT4*:
+     - `sudo add-apt-repository ppa:rock-core/qt4`
+     - `sudo apt update`
+     - `sudo apt-get install qt4-qmake qt4-dev-tools`
+   - Clone *Hecotr-SLAM* pkg into src folder:
+     - `git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam.git`
+   - Ensure the coordinate frame parameters in "/hector_slam/hector_mapping/launch/mapping_default.launch" are set-up with the right names & options.
+
+6) Setup the simulation and launch the mapping algorithm; this will generate a map that can be saved as a png and subsequently loaded onto a map_server for subsequent use (requires installation of the map-server pkg). The robot needs to move quite slowly around the environment in order to generate an accurate map-- if it moves too fast the map will be way off.
+
+7) Once the robot has been made to navigate around its environment, and a map can bee seen in RViz, store the map in a "maps" folder:
+   - `roscd mobile_manipulator/maps`
+   - `rosrun map_server map_saver -f test`
+
+8) To load a saved map, set-up a roscore, run the map server and load the "test.yaml" map you made to the rosparam server. Now the map can be inspected in rviz by interrogating the "/map" topic via the Map display plugin.
+   - `roscore`
+   - `rosrun map_server map_server test.yaml`
+   - `rviz` (then within rviz: "Add" -> "Map" -> select topic "/map")
