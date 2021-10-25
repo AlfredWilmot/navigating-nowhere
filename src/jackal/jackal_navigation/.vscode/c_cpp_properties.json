@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/alfie/Desktop/navigating-nowhere/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/alfie/Desktop/navigating-nowhere/src/LMS1xx/include/**",
+        "/home/alfie/Desktop/navigating-nowhere/src/pointgrey_camera_driver/pointgrey_camera_driver/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}
