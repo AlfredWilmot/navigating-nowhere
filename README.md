@@ -6,7 +6,7 @@ These notes are based on instructions from [this guide](https://www.clearpathrob
 
 - Once everything shown in the guide has been dowloaded, make sure all the rospackage dependencies are met:
 
-  - `rosdep --install-deps src --ignore-src -r -y`
+  - `rosdep install --from-paths src --ignore-src -r -y`
 
 The various components of interest form the guide are as follows:
 - Simulation
