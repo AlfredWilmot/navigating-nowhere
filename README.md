@@ -19,9 +19,20 @@ Setting-up the Boston Dynamics *spot* robot using the [clearpath robotics ROS pa
 
 Clear costmap: 
 - `rosservice call /move_base/clear_costmaps`
+
 Reset model poses in Gazebo:
 - `Ctrl+Shift+R`
+
+ROS Nav Tutorials:
 - [ROS Navigation Tuning Guide](https://kaiyuzheng.me/documents/navguide.pdf)
 - [Advanced ROS Navigation configuration notes](https://blog.zhaw.ch/icclab/configuring-the-ros-navigation-stack-on-a-new-robot/)
+
+Building CHAMP package on a new computer:
+1) I am sure there is a "proper" way of dealing with this using git submodules, but I can't figure it out! 
+2) Navigate to the include directory of the champ metapackage, clone the champlib repo, then rename it to "champ"
+- `roscd champ/include`
+- `git clone --recursive https://github.com/chvmp/libchamp.git`
+- `mv libchamp/ champ/`
+3) Assuming all the rosdeps are installed, should be able to build the workspace using `catkin_make`.
 
 ---
