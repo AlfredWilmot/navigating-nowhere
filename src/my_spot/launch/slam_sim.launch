@@ -28,7 +28,7 @@
     <include file="$(find champ_gazebo)/launch/gazebo.launch">
         <arg name="robot_name"         value="$(arg robot_name)"/>
         <arg name="ros_control_file"   value="$(find spot_config)/config/ros_control/ros_control.yaml" /> <!-- Path to ROS Control configurations. Do not touch. -->
-        <arg name="gazebo_world"       value="$(find spot_config)/worlds/default.world" /> <!-- Path to Gazebo world you want to load. -->
+        <arg name="gazebo_world"       value="$(find my_spot)/worlds/cube.world" /> <!-- Path to Gazebo world you want to load. -->
         <arg name="gui"                value="true"/>
         <arg name="world_init_x"       value="0.0" /> <!-- X Initial position of the robot in Gazebo World -->
         <arg name="world_init_y"       value="0.0" /> <!-- Y Initial position of the robot in Gazebo World -->
@@ -39,19 +39,19 @@
     <group ns="$(arg robot_name)">
 
     <!-- gmapping -->
-        <include file="$(find spot_config)/launch/include/gmapping.launch">
+        <include file="$(find my_spot)/launch/include/gmapping.launch">
             <arg name="frame_prefix" value="$(arg frame_prefix)"/>
         </include>
 
     <!-- navigation params-->
-        <include file="$(find spot_config)/launch/include/move_base.launch">
+        <include file="$(find my_spot)/launch/include/move_base.launch">
             <arg name="frame_prefix" value="$(arg frame_prefix)"/>
             <arg name="robot_name"   value="$(arg robot_name)"/>
         </include>
 
     <!-- data visualization -->
         <node name="rviz" pkg="rviz" type="rviz"
-            args="-d $(find champ_navigation)/rviz/navigate.rviz -f $(arg frame_prefix)map"
+            args="-d $(find my_spot)/rviz/slam.rviz -f $(arg frame_prefix)map"
             output="screen"/>
     </group>
 
