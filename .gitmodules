@@ -1,6 +1,9 @@
 [submodule "src/champ"]
 	path = src/champ
 	url = https://github.com/chvmp/champ.git
+[submodule "src/champ/libchamp"]
+	path = src/champ/champ/include/champ
+	url = https://github.com/chvmp/libchamp.git
 [submodule "src/robots"]
 	path = src/robots
 	url = https://github.com/chvmp/robots.git
