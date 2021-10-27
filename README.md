@@ -2,9 +2,17 @@
 
 This set of instructions aims to outline how to setup the ROS navigation stack on a simulated robot in ROS Melodic (on Ubuntu 18.04). 
 
-Make sure to set-up the git submodules properly in order to get the workspace functioning properly.
+Make sure to set-up the git submodules properly in order to get the workspace functioning.
 
-1) 
+1) Install the CHAMP package and its submodules.
+ - `git submodule add https://github.com/chvmp/champ.git`
+ - `git submodule add https://github.com/chvmp/robots.git`
+ - `git submodule update --init --recursive`
+
+2) Install any dependencies as outlined by the package READMEs, and perform a final check from the catkin_ws.
+- `rosdep install --from-paths src --ignore-src -r -y`
+
+3) 
 
 Setting-up the Boston Dynamics *spot* robot using the [clearpath robotics ROS package](https://github.com/clearpathrobotics/spot_ros) for the hardware driver, and the [*CHAMP* ROS package](https://github.com/chvmp/champ) for simulating the robot in Gazebo and configuration files for the navigation stack.
 
