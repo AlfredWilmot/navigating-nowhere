@@ -12,7 +12,10 @@ Make sure to set-up the git submodules properly in order to get the workspace fu
 2) Install any dependencies as outlined by the package READMEs, and perform a final check from the catkin_ws.
 - `rosdep install --from-paths src --ignore-src -r -y`
 
-3) 
+1) When setting-up this repository on a new system, pull the submodules, run the robots install script, then build the workspace:
+   - `git pull --recurse-submodules`
+   - `./src/robots/install_descriptions`
+   - `catkin_make`
 
 Setting-up the Boston Dynamics *spot* robot using the [clearpath robotics ROS package](https://github.com/clearpathrobotics/spot_ros) for the hardware driver, and the [*CHAMP* ROS package](https://github.com/chvmp/champ) for simulating the robot in Gazebo and configuration files for the navigation stack.
 
