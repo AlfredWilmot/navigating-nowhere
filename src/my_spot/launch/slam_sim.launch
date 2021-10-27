@@ -1,0 +1,59 @@
+<launch>
+
+    <arg name="robot_name"              default="/"/>
+
+    <arg if="$(eval arg('robot_name') == '/')"  name="frame_prefix" value="" />
+    <arg unless="$(eval arg('robot_name') == '/')" name="frame_prefix" value="$(arg robot_name)/" />
+
+<!-- bringup -->
+
+    <include file="$(find champ_bringup)/launch/bringup.launch">
+        <arg name="robot_name"             value="$(arg robot_name)"/>
+        <arg name="base_frame"             value="body"/>
+        <arg name="joints_map_file"        value="$(find spot_config)/config/joints/joints.yaml"/>
+        <arg name="links_map_file"         value="$(find spot_config)/config/links/links.yaml"/>
+        <arg name="gait_config_file"       value="$(find spot_config)/config/gait/gait.yaml"/>
+        <arg name="description_file"       value="$(find spot_description)/urdf/spot.urdf"/>
+        <arg name="joint_controller_topic" value="joint_group_position_controller/command"/>  <!-- relevant to actuator controller command topic for ROS control-->
+        <arg name="publish_foot_contacts"  value="false" />
+        <arg name="publish_joint_control"  value="true"/> 
+        <arg name="close_loop_odom"        value="true" />
+        <arg name="rviz_ref_frame"         value="$(arg frame_prefix)odom"/> <!-- Default RVIZ reference frame is the odometry frame -->
+    </include>
+
+<!-- gazebo -->
+
+     <param name="use_sim_time" value="true" />
+
+    <include file="$(find champ_gazebo)/launch/gazebo.launch">
+        <arg name="robot_name"         value="$(arg robot_name)"/>
+        <arg name="ros_control_file"   value="$(find spot_config)/config/ros_control/ros_control.yaml" /> <!-- Path to ROS Control configurations. Do not touch. -->
+        <arg name="gazebo_world"       value="$(find spot_config)/worlds/default.world" /> <!-- Path to Gazebo world you want to load. -->
+        <arg name="gui"                value="true"/>
+        <arg name="world_init_x"       value="0.0" /> <!-- X Initial position of the robot in Gazebo World -->
+        <arg name="world_init_y"       value="0.0" /> <!-- Y Initial position of the robot in Gazebo World -->
+        <arg name="world_init_heading" value="0.0" /> <!-- Initial heading of the robot in Gazebo World -->
+    </include>    
+
+<!-- SLAM -->
+    <group ns="$(arg robot_name)">
+
+    <!-- gmapping -->
+        <include file="$(find spot_config)/launch/include/gmapping.launch">
+            <arg name="frame_prefix" value="$(arg frame_prefix)"/>
+        </include>
+
+    <!-- navigation params-->
+        <include file="$(find spot_config)/launch/include/move_base.launch">
+            <arg name="frame_prefix" value="$(arg frame_prefix)"/>
+            <arg name="robot_name"   value="$(arg robot_name)"/>
+        </include>
+
+    <!-- data visualization -->
+        <node name="rviz" pkg="rviz" type="rviz"
+            args="-d $(find champ_navigation)/rviz/navigate.rviz -f $(arg frame_prefix)map"
+            output="screen"/>
+    </group>
+
+
+</launch>
