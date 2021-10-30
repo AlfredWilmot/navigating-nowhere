@@ -9,7 +9,15 @@ Overview:
 - simulating and interfacing relevant sensors in ROS/ Gazebo
 - Simulation of a "Drive By Wire" (DBW) car in ROS.
 
-The ROS packages **sensor_sim_gazebo**, **velodyne_description**, **velodyne_gazebo_plugins**, and **velodyne_simulator**, were copied directly from the "*chapter_10_ws*" section of the [git repository](https://github.com/PacktPublishing/ROS-Robotics-Projects-SecondEdition/tree/master/chapter_10_ws) associated with the [*ROS Robotics Projects*](https://www.amazon.com/ROS-Robotics-Projects-Ramkumar-Gandhinathan/dp/1838645195) book.
+<!-- The ROS packages **sensor_sim_gazebo**, **velodyne_description**, **velodyne_gazebo_plugins**, and **velodyne_simulator**, were copied directly from the "*chapter_10_ws*" section of the [git repository](https://github.com/PacktPublishing/ROS-Robotics-Projects-SecondEdition/tree/master/chapter_10_ws) associated with the [*ROS Robotics Projects*](https://www.amazon.com/ROS-Robotics-Projects-Ramkumar-Gandhinathan/dp/1838645195) book. -->
+
+---
+## Workspace set-up
+
+### Simulating Velodyne LIDAR
+
+Adding velodyne simulator package as a git submodule in the src dir:
+- `git submodule add https://bitbucket.org/DataspeedInc/velodyne_simulator.git`
 
 ---
 ## Reading Notes
@@ -38,9 +46,9 @@ Some acronyms:
   - e.g. [*Lightweight Communications and Marshalling* (LCM)](https://lcm-proj.github.io/)
 
 ---
-
----
 ## General Notes
 
+Install missing deps:
+- `rosdep install --from-paths src --ignore-src -r -y`
 
 ---
