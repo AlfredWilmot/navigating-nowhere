@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find my_spot_description)/gazebo/physical_attributes.gazebo" />
+    <xacro:include filename="$(find hector_sensors_description)/urdf/asus_camera.urdf.xacro" />
+
+
+<!-- Depth Cameras -->
+
+    <!-- front camera -->
+    <xacro:asus_camera 
+        parent="base_link" 
+        name="front_camera">
+        <origin xyz="${base_length / 2} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </xacro:asus_camera>
+    <gazebo>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>front_camera</cameraName>
+          <imageTopicName>/front_camera/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/front_camera/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/front_camera/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/front_camera/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/front_camera/depth/points</pointCloudTopicName>
+          <frameName>front_camera_link</frameName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+    </gazebo>
+
+    <!-- left camera -->
+    <xacro:asus_camera 
+        parent="base_link" 
+        name="left_camera">
+        <origin xyz="0.0 ${base_width / 2 + 0.006} 0.0" rpy="0.0 0.0 ${3.14159 / 2}"/>
+    </xacro:asus_camera>
+    <gazebo>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>left_camera</cameraName>
+          <imageTopicName>/left_camera/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/left_camera/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/left_camera/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/left_camera/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/left_camera/depth/points</pointCloudTopicName>
+          <frameName>left_camera_link</frameName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+    </gazebo>
+
+    <!-- right camera -->
+    <xacro:asus_camera 
+        parent="base_link" 
+        name="right_camera">
+        <origin xyz="0.0 ${-base_width / 2 - 0.006} 0.0" rpy="0.0 0.0 ${-3.14159 / 2}"/>
+    </xacro:asus_camera>
+    <gazebo>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>right_camera</cameraName>
+          <imageTopicName>/right_camera/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/right_camera/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/right_camera/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/right_camera/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/right_camera/depth/points</pointCloudTopicName>
+          <frameName>right_camera_link</frameName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+    </gazebo>
+
+    <!-- rear camera -->
+    <xacro:asus_camera 
+        parent="base_link" 
+        name="rear_camera">
+        <origin xyz="${-base_length / 2} 0.0 0.0" rpy="0.0 0.0 3.14159"/>
+    </xacro:asus_camera>
+    <gazebo>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>rear_camera</cameraName>
+          <imageTopicName>/rear_camera/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/rear_camera/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/rear_camera/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/rear_camera/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/rear_camera/depth/points</pointCloudTopicName>
+          <frameName>rear_camera_link</frameName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+    </gazebo>
+
+<!-- Inertial Measurement Unit -->
+    <gazebo>
+        <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+            <updateRate>50.0</updateRate>
+            <bodyName>imu_link</bodyName>
+            <topicName>imu/data</topicName>
+            <accelDrift>0.005 0.005 0.005</accelDrift>
+            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+            <rateDrift>0.005 0.005 0.005 </rateDrift>
+            <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+            <headingDrift>0.005</headingDrift>
+            <headingGaussianNoise>0.005</headingGaussianNoise>
+        </plugin>
+    </gazebo>
+
+    <link name="imu_link">
+        <inertial>
+            <mass value="0.001"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+        </inertial>
+    </link>
+    <joint name="imu_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="imu_link" />
+    </joint>
+
+</robot>
