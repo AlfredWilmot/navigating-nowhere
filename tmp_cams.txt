@@ -1,0 +1,433 @@
+  <!-- Depth Cameras -->
+  <joint name="front_camera_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.43 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="front_camera_link"/>
+  </joint>
+  <link name="front_camera_link">
+    <inertial>
+      <mass value="0.200"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </visual>
+    <!--        
+       <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.035 0.185 0.025"/>
+          </geometry>
+        </collision>
+        -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="front_camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.049 0.0"/>
+    <parent link="front_camera_link"/>
+    <child link="front_camera_depth_frame"/>
+  </joint>
+  <link name="front_camera_depth_frame"/>
+  <joint name="front_camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="front_camera_depth_frame"/>
+    <child link="front_camera_depth_optical_frame"/>
+  </joint>
+  <link name="front_camera_depth_optical_frame"/>
+  <joint name="front_camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.022 0.0"/>
+    <parent link="front_camera_link"/>
+    <child link="front_camera_rgb_frame"/>
+  </joint>
+  <link name="front_camera_rgb_frame"/>
+  <joint name="front_camera_rgb_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="front_camera_rgb_frame"/>
+    <child link="front_camera_rgb_optical_frame"/>
+  </joint>
+  <link name="front_camera_rgb_optical_frame"/>
+  <!-- ASUS Xtion PRO camera for simulation -->
+  <gazebo reference="front_camera_depth_frame">
+    <sensor name="front_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.09606677025</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.5</near>
+          <far>9</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="front_camera_camera_controller">
+        <imageTopicName>front_camera/rgb/image_raw</imageTopicName>
+        <cameraInfoTopicName>front_camera/rgb/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>front_camera/depth/image_raw</depthImageTopicName>
+        <depthImageCameraInfoTopicName>front_camera/depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>front_camera/depth/points</pointCloudTopicName>
+        <frameName>front_camera_depth_optical_frame</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_plugin">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>front_camera</cameraName>
+      <imageTopicName>/front_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/front_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>/front_camera/depth/image_raw</depthImageTopicName>
+      <depthImageCameraInfoTopicName>/front_camera/depth/camera_info</depthImageCameraInfoTopicName>
+      <pointCloudTopicName>/front_camera/depth/points</pointCloudTopicName>
+      <frameName>front_camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0</distortionK1>
+      <distortionK2>0</distortionK2>
+      <distortionK3>0</distortionK3>
+      <distortionT1>0</distortionT1>
+      <distortionT2>0</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </gazebo>
+  <joint name="left_camera_joint" type="fixed">
+    <origin rpy="0.0 0.0 1.570795" xyz="0.0 0.111 0.0"/>
+    <parent link="base_link"/>
+    <child link="left_camera_link"/>
+  </joint>
+  <link name="left_camera_link">
+    <inertial>
+      <mass value="0.200"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </visual>
+    <!--        
+       <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.035 0.185 0.025"/>
+          </geometry>
+        </collision>
+        -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.049 0.0"/>
+    <parent link="left_camera_link"/>
+    <child link="left_camera_depth_frame"/>
+  </joint>
+  <link name="left_camera_depth_frame"/>
+  <joint name="left_camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="left_camera_depth_frame"/>
+    <child link="left_camera_depth_optical_frame"/>
+  </joint>
+  <link name="left_camera_depth_optical_frame"/>
+  <joint name="left_camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.022 0.0"/>
+    <parent link="left_camera_link"/>
+    <child link="left_camera_rgb_frame"/>
+  </joint>
+  <link name="left_camera_rgb_frame"/>
+  <joint name="left_camera_rgb_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="left_camera_rgb_frame"/>
+    <child link="left_camera_rgb_optical_frame"/>
+  </joint>
+  <link name="left_camera_rgb_optical_frame"/>
+  <!-- ASUS Xtion PRO camera for simulation -->
+  <gazebo reference="left_camera_depth_frame">
+    <sensor name="left_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.09606677025</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.5</near>
+          <far>9</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="left_camera_camera_controller">
+        <imageTopicName>left_camera/rgb/image_raw</imageTopicName>
+        <cameraInfoTopicName>left_camera/rgb/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>left_camera/depth/image_raw</depthImageTopicName>
+        <depthImageCameraInfoTopicName>left_camera/depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>left_camera/depth/points</pointCloudTopicName>
+        <frameName>left_camera_depth_optical_frame</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_plugin">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>left_camera</cameraName>
+      <imageTopicName>/left_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/left_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>/left_camera/depth/image_raw</depthImageTopicName>
+      <depthImageCameraInfoTopicName>/left_camera/depth/camera_info</depthImageCameraInfoTopicName>
+      <pointCloudTopicName>/left_camera/depth/points</pointCloudTopicName>
+      <frameName>left_camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0</distortionK1>
+      <distortionK2>0</distortionK2>
+      <distortionK3>0</distortionK3>
+      <distortionT1>0</distortionT1>
+      <distortionT2>0</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </gazebo>
+  <joint name="right_camera_joint" type="fixed">
+    <origin rpy="0.0 0.0 -1.570795" xyz="0.0 -0.111 0.0"/>
+    <parent link="base_link"/>
+    <child link="right_camera_link"/>
+  </joint>
+  <link name="right_camera_link">
+    <inertial>
+      <mass value="0.200"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </visual>
+    <!--        
+       <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.035 0.185 0.025"/>
+          </geometry>
+        </collision>
+        -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.049 0.0"/>
+    <parent link="right_camera_link"/>
+    <child link="right_camera_depth_frame"/>
+  </joint>
+  <link name="right_camera_depth_frame"/>
+  <joint name="right_camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="right_camera_depth_frame"/>
+    <child link="right_camera_depth_optical_frame"/>
+  </joint>
+  <link name="right_camera_depth_optical_frame"/>
+  <joint name="right_camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.022 0.0"/>
+    <parent link="right_camera_link"/>
+    <child link="right_camera_rgb_frame"/>
+  </joint>
+  <link name="right_camera_rgb_frame"/>
+  <joint name="right_camera_rgb_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="right_camera_rgb_frame"/>
+    <child link="right_camera_rgb_optical_frame"/>
+  </joint>
+  <link name="right_camera_rgb_optical_frame"/>
+  <!-- ASUS Xtion PRO camera for simulation -->
+  <gazebo reference="right_camera_depth_frame">
+    <sensor name="right_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.09606677025</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.5</near>
+          <far>9</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="right_camera_camera_controller">
+        <imageTopicName>right_camera/rgb/image_raw</imageTopicName>
+        <cameraInfoTopicName>right_camera/rgb/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>right_camera/depth/image_raw</depthImageTopicName>
+        <depthImageCameraInfoTopicName>right_camera/depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>right_camera/depth/points</pointCloudTopicName>
+        <frameName>right_camera_depth_optical_frame</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_plugin">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>right_camera</cameraName>
+      <imageTopicName>/right_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/right_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>/right_camera/depth/image_raw</depthImageTopicName>
+      <depthImageCameraInfoTopicName>/right_camera/depth/camera_info</depthImageCameraInfoTopicName>
+      <pointCloudTopicName>/right_camera/depth/points</pointCloudTopicName>
+      <frameName>right_camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0</distortionK1>
+      <distortionK2>0</distortionK2>
+      <distortionK3>0</distortionK3>
+      <distortionT1>0</distortionT1>
+      <distortionT2>0</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </gazebo>
+  <joint name="rear_camera_joint" type="fixed">
+    <origin rpy="0.0 0.0 3.14159" xyz="-0.43 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="rear_camera_link"/>
+  </joint>
+  <link name="rear_camera_link">
+    <inertial>
+      <mass value="0.200"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </visual>
+    <!--        
+       <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.035 0.185 0.025"/>
+          </geometry>
+        </collision>
+        -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hector_sensors_description/meshes/asus_camera/asus_camera_simple.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="rear_camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.049 0.0"/>
+    <parent link="rear_camera_link"/>
+    <child link="rear_camera_depth_frame"/>
+  </joint>
+  <link name="rear_camera_depth_frame"/>
+  <joint name="rear_camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="rear_camera_depth_frame"/>
+    <child link="rear_camera_depth_optical_frame"/>
+  </joint>
+  <link name="rear_camera_depth_optical_frame"/>
+  <joint name="rear_camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.022 0.0"/>
+    <parent link="rear_camera_link"/>
+    <child link="rear_camera_rgb_frame"/>
+  </joint>
+  <link name="rear_camera_rgb_frame"/>
+  <joint name="rear_camera_rgb_optical_joint" type="fixed">
+    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
+    <parent link="rear_camera_rgb_frame"/>
+    <child link="rear_camera_rgb_optical_frame"/>
+  </joint>
+  <link name="rear_camera_rgb_optical_frame"/>
+  <!-- ASUS Xtion PRO camera for simulation -->
+  <gazebo reference="rear_camera_depth_frame">
+    <sensor name="rear_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.09606677025</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.5</near>
+          <far>9</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="rear_camera_camera_controller">
+        <imageTopicName>rear_camera/rgb/image_raw</imageTopicName>
+        <cameraInfoTopicName>rear_camera/rgb/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>rear_camera/depth/image_raw</depthImageTopicName>
+        <depthImageCameraInfoTopicName>rear_camera/depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>rear_camera/depth/points</pointCloudTopicName>
+        <frameName>rear_camera_depth_optical_frame</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_plugin">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>rear_camera</cameraName>
+      <imageTopicName>/rear_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/rear_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>/rear_camera/depth/image_raw</depthImageTopicName>
+      <depthImageCameraInfoTopicName>/rear_camera/depth/camera_info</depthImageCameraInfoTopicName>
+      <pointCloudTopicName>/rear_camera/depth/points</pointCloudTopicName>
+      <frameName>rear_camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0</distortionK1>
+      <distortionK2>0</distortionK2>
+      <distortionK3>0</distortionK3>
+      <distortionT1>0</distortionT1>
+      <distortionT2>0</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </gazebo>
