@@ -1,6 +1,8 @@
 # Navigating Nowhere
 
 This set of instructions aims to outline how to setup the ROS navigation stack on a simulated robot in ROS Melodic (on Ubuntu 18.04). 
+Here is a gif of the spot gazebo sim using a LIDAR running on my Ubuntu-18.04 machine (x4 speed):
+![spot-gazebo-animation](https://user-images.githubusercontent.com/18071042/155579979-d65dbc27-a60c-407b-bc68-353fbda3a8a6.gif)
 
 Setting-up the Boston Dynamics *spot* robot using the [clearpath robotics ROS package](https://github.com/clearpathrobotics/spot_ros) for the hardware driver, and the [*CHAMP* ROS package](https://github.com/chvmp/champ) for simulating the robot in Gazebo and configuration files for the navigation stack. Make sure all the dependencies for these packages are met!
 
